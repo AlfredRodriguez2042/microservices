@@ -1,0 +1,9 @@
+.env
+Docker/
+certs/
+api-gateway/dist
+api-gateway/node_modules
+ms-email/dist
+ms-email/node_modules
+user.service/dist
+user.service/node_modules

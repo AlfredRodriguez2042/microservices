@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres
+    container_name: postgresql
+    volumes: 
+     - '${PWD}/Docker/postgres/data/:/var/lib/postgres/data'
+  mysql:
+    image: mysql:8.0
+    #restart: always
+    environment:
+      MYSQL_DATABASE: users
+      MYSQL_USER: prueba
+      MYSQL_PASSWORD: prueba
+      MYSQL_ROOT_PASSWORD: prueba
+
+  storage:
+    image: redis
+    container_name: redis
+    volumes: 
+      - '${PWD}/Docker/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf'
+      - '${PWD}/Docker/redis/data:/data'
+
+  ms-users:
+    container_name: ms-users
+    image: users
+    depends_on:
+      - postgres
+      - storage      
+
+    
+    

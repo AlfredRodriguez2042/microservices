@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  postgres:
+    ports:
+      - '5432:${POSTGRES_PORT:-5432}'
+    environment:
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-postgres}'
+      POSTGRES_USER: '${POSTGRES_USER:-postgres}'
+      POSTGRES_DB: '${POSTGRES_DB:-users}'
+
+  storage:
+    ports:
+      - '${REDIS_PORT:-6379}'
+
+  ms-users:
+    build:
+      context: ./users.service
+      dockerfile: Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - '5000-6000:${NEST_USERS_PORT}'
+    env_file: .env
+    environment:
+      NEST_DB_HOST: postgres
+      NEST_DB_NAME: users
+      NEST_ENV: 'development'
+    volumes:
+      - './users.service:/home/node/app'  
