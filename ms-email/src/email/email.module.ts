@@ -9,8 +9,7 @@ import { SendGridModule } from './infrastructure/sendgrid/sendgrid.module';
 @Module({
   imports: [
     SendGridModule.forRoot({
-      apiKey:
-        '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',
+      apiKey: process.env.NEST_SENDGRID_KEY,
     }),
   ],
   controllers: [EmailController],
